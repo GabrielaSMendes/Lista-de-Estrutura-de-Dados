@@ -5,7 +5,7 @@ Professor: Gabriel Passos
 
 Integrantes do grupo:
 
-- Caetano MikuliS
+- Caetano Mikulis
 - Gabriela Mendes
 - Gustavo Kenzo
 - Ryan do Vale

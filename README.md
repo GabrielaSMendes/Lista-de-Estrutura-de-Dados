@@ -1,6 +1,8 @@
-Lista de Avaliação Prática de Estrutura de Dados
+LISTA DE AVALIAÇÃO PRÁTICA DE ESTRUTURA DE DADOS
 
-Integrantes do grupo:
+PROFESSIR: GABRIEL PASSOS
+
+INTEGRANTES DO GRUPO:
 
 Caetano MikuliS
 Gabriela Mendes

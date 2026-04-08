@@ -1,4 +1,5 @@
 Lista de avaliação prática de Estrutura de Dados
+
 Professor: Gabriel Passos
 
 Integrantes do grupo:

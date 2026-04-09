@@ -4,10 +4,10 @@ Professor: Gabriel Passos
 
 Integrantes do grupo:
 
-Caetano Mikulis
-Gabriela Mendes
-Gustavo Kenzo
-Ryan do Vale
+Caetano Mikulis, 
+Gabriela Mendes, 
+Gustavo Kenzo, 
+Ryan do Vale, 
 Leonardo Sampaio
 
 ## Instruções de execução

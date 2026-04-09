@@ -1,0 +1,24 @@
+# Enunciado da avaliação (manter só localmente, se preferir)
+EXERCICIO.md
+exercicio.md
+
+# Eclipse
+.classpath
+.project
+.settings/
+
+# SO e editores
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+*~
+
+# Build / compilados (ajuste conforme a linguagem do projeto)
+*.o
+*.exe
+*.class
+out/
+bin/
+build/
+target/

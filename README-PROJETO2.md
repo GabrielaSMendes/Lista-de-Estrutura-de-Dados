@@ -7,15 +7,15 @@ Comparativo experimental entre **BST**, **AVL**, **árvore rubro-negra (LLRB)** 
 Os ficheiros com `package trees` ou `package tsp` têm de estar nas pastas com o mesmo nome (requisito do Java).
 
 ```
-Projeto1Estrutura/
-├── Main.java              ← programa principal (pacote default)
-├── TrabalhoAD.java        ← versão monolítica opcional (sem pacotes)
-├── trees/
-│   ├── BST.java
-│   ├── AVL.java
-│   └── RedBlack.java      ← LLRB alinhada a Sedgewick & Wayne (Algs4)
-└── tsp/
-    └── TSP.java
+src/
+├── listaepo/
+│   └── MenuPrincipal.java    ← menu geral; opção [2] chama o benchmark
+└── projeto2/
+    ├── BenchmarkBusca.java       ← orquestra os experimentos e medições
+    ├── ConfiguracaoBenchmark.java ← parâmetros (tamanhos, repetições, etc.)
+    ├── BuscaSequencial.java
+    ├── BuscaBinaria.java
+    └── BuscaArvoreBST.java       ← BST usada no benchmark
 ```
 
 ## Compilar e executar (pacotes)

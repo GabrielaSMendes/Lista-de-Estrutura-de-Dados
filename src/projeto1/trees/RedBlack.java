@@ -1,4 +1,4 @@
-package trees;
+package projeto1.trees;
 
 /**
  * LLRB (left-leaning red-black) baseada em Sedgewick & Wayne, Algorithms 4th ed.
@@ -6,7 +6,7 @@ package trees;
  */
 public class RedBlack<T extends Comparable<T>> {
 
-    private static final boolean RED   = true;
+    private static final boolean RED = true;
     private static final boolean BLACK = false;
 
     private Node root;
@@ -17,7 +17,7 @@ public class RedBlack<T extends Comparable<T>> {
         boolean color;
 
         Node(T key) {
-            this.key   = key;
+            this.key = key;
             this.color = RED;
         }
     }
@@ -29,7 +29,7 @@ public class RedBlack<T extends Comparable<T>> {
     private Node rotateLeft(Node h) {
         Node x = h.right;
         h.right = x.left;
-        x.left  = h;
+        x.left = h;
         x.color = h.color;
         h.color = RED;
         return x;
@@ -37,7 +37,7 @@ public class RedBlack<T extends Comparable<T>> {
 
     private Node rotateRight(Node h) {
         Node x = h.left;
-        h.left  = x.right;
+        h.left = x.right;
         x.right = h;
         x.color = h.color;
         h.color = RED;
@@ -45,8 +45,8 @@ public class RedBlack<T extends Comparable<T>> {
     }
 
     private void flipColors(Node h) {
-        h.color       = !h.color;
-        h.left.color  = !h.left.color;
+        h.color = !h.color;
+        h.left.color = !h.left.color;
         h.right.color = !h.right.color;
     }
 
@@ -58,13 +58,13 @@ public class RedBlack<T extends Comparable<T>> {
     private Node insertRec(Node h, T key) {
         if (h == null) return new Node(key);
         int cmp = key.compareTo(h.key);
-        if      (cmp < 0) h.left  = insertRec(h.left, key);
+        if (cmp < 0) h.left = insertRec(h.left, key);
         else if (cmp > 0) h.right = insertRec(h.right, key);
         else return h;
 
-        if (isRed(h.right) && !isRed(h.left))       h = rotateLeft(h);
-        if (isRed(h.left) && isRed(h.left.left))    h = rotateRight(h);
-        if (isRed(h.left) && isRed(h.right))        flipColors(h);
+        if (isRed(h.right) && !isRed(h.left)) h = rotateLeft(h);
+        if (isRed(h.left) && isRed(h.left.left)) h = rotateRight(h);
+        if (isRed(h.left) && isRed(h.right)) flipColors(h);
         return h;
     }
 
@@ -72,7 +72,7 @@ public class RedBlack<T extends Comparable<T>> {
         Node x = root;
         while (x != null) {
             int cmp = key.compareTo(x.key);
-            if      (cmp < 0) x = x.left;
+            if (cmp < 0) x = x.left;
             else if (cmp > 0) x = x.right;
             else return true;
         }
@@ -99,7 +99,7 @@ public class RedBlack<T extends Comparable<T>> {
                 h = moveRedRight(h);
             if (key.compareTo(h.key) == 0) {
                 Node x = findMin(h.right);
-                h.key  = x.key;
+                h.key = x.key;
                 h.right = deleteMin(h.right);
             } else {
                 h.right = delete(h.right, key);
@@ -137,9 +137,9 @@ public class RedBlack<T extends Comparable<T>> {
 
     private Node balance(Node h) {
         if (h == null) return null;
-        if (isRed(h.right) && !isRed(h.left))        h = rotateLeft(h);
-        if (isRed(h.left) && isRed(h.left.left))     h = rotateRight(h);
-        if (isRed(h.left) && isRed(h.right))         flipColors(h);
+        if (isRed(h.right) && !isRed(h.left)) h = rotateLeft(h);
+        if (isRed(h.left) && isRed(h.left.left)) h = rotateRight(h);
+        if (isRed(h.left) && isRed(h.right)) flipColors(h);
         return h;
     }
 
@@ -161,3 +161,4 @@ public class RedBlack<T extends Comparable<T>> {
         root = null;
     }
 }
+

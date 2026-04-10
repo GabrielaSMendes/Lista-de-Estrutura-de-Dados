@@ -1,4 +1,4 @@
-package trees;
+package projeto1.trees;
 
 public class BST<T extends Comparable<T>> {
 
@@ -80,3 +80,4 @@ public class BST<T extends Comparable<T>> {
         root = null;
     }
 }
+

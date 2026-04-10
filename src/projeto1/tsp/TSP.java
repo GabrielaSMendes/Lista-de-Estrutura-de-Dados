@@ -1,4 +1,4 @@
-package tsp;
+package projeto1.tsp;
 
 import java.util.*;
 
@@ -9,7 +9,7 @@ public class TSP {
 
     public TSP(double[][] dist) {
         this.dist = dist;
-        this.n    = dist.length;
+        this.n = dist.length;
     }
 
     // ── Vizinho mais próximo (heurística construtiva) ─────────────────────────
@@ -44,7 +44,7 @@ public class TSP {
                 for (int j = i + 2; j < n; j++) {
                     if (j == n - 1 && i == 0) continue;
                     double d0 = dist[best[i]][best[i + 1]] + dist[best[j]][best[(j + 1) % n]];
-                    double d1 = dist[best[i]][best[j]]     + dist[best[i + 1]][best[(j + 1) % n]];
+                    double d1 = dist[best[i]][best[j]] + dist[best[i + 1]][best[(j + 1) % n]];
                     if (d1 < d0 - 1e-10) {
                         reverse(best, i + 1, j);
                         improved = true;
@@ -57,8 +57,11 @@ public class TSP {
 
     private void reverse(int[] a, int from, int to) {
         while (from < to) {
-            int tmp = a[from]; a[from] = a[to]; a[to] = tmp;
-            from++; to--;
+            int tmp = a[from];
+            a[from] = a[to];
+            a[to] = tmp;
+            from++;
+            to--;
         }
     }
 
@@ -80,7 +83,10 @@ public class TSP {
     // ── Geração de instância aleatória (cidades em [0,1000]^2) ───────────────
     public static double[][] randomInstance(int n, Random rng) {
         double[] x = new double[n], y = new double[n];
-        for (int i = 0; i < n; i++) { x[i] = rng.nextDouble() * 1000; y[i] = rng.nextDouble() * 1000; }
+        for (int i = 0; i < n; i++) {
+            x[i] = rng.nextDouble() * 1000;
+            y[i] = rng.nextDouble() * 1000;
+        }
         double[][] d = new double[n][n];
         for (int i = 0; i < n; i++)
             for (int j = 0; j < n; j++)
@@ -88,3 +94,4 @@ public class TSP {
         return d;
     }
 }
+

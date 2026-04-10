@@ -1,13 +1,21 @@
-import trees.*;
-import tsp.TSP;
+package projeto1;
 
-import java.util.*;
+import projeto1.trees.*;
+import projeto1.tsp.TSP;
 
-public class Main {
+import java.util.Arrays;
+import java.util.Locale;
+import java.util.Random;
+import java.util.Scanner;
+
+public final class Projeto1 {
+
+    private Projeto1() {
+    }
 
     static final int RUNS = 30;
     static final int[] TREE_SIZES = {1_000, 10_000, 100_000};
-    static final int[] TSP_SIZES  = {50, 200, 500};
+    static final int[] TSP_SIZES = {50, 200, 500};
 
     static final int BANNER = 70;
     static final Locale OUT = Locale.US;
@@ -91,11 +99,11 @@ public class Main {
                     + " elementos   |   " + RUNS + " execucoes por estrutura");
 
             double[] bstIns = new double[RUNS], bstSrch = new double[RUNS],
-                     bstRem = new double[RUNS], bstH = new double[RUNS];
+                    bstRem = new double[RUNS], bstH = new double[RUNS];
             double[] avlIns = new double[RUNS], avlSrch = new double[RUNS],
-                     avlRem = new double[RUNS], avlH = new double[RUNS];
+                    avlRem = new double[RUNS], avlH = new double[RUNS];
             double[] rbIns = new double[RUNS], rbSrch = new double[RUNS],
-                     rbRem = new double[RUNS], rbH = new double[RUNS];
+                    rbRem = new double[RUNS], rbH = new double[RUNS];
 
             Random rng = new Random(42);
 
@@ -176,7 +184,7 @@ public class Main {
         }
     }
 
-    public static void main(String[] args) {
+    public static void rodar(Scanner entrada, String[] args) {
         banner('=', "ANALISE EXPERIMENTAL - ESTRUTURAS DE DADOS E TSP");
         runTreeExperiment();
         runTSPExperiment();
@@ -186,4 +194,9 @@ public class Main {
         System.out.println("  " + repeat('=', BANNER - 4));
         System.out.println();
     }
+
+    public static void main(String[] args) {
+        rodar(new Scanner(System.in), args);
+    }
 }
+

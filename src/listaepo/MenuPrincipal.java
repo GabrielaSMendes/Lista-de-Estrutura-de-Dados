@@ -8,6 +8,7 @@ import java.nio.file.Paths;
 import java.util.Scanner;
 
 import projeto2.BenchmarkBusca;
+import projeto1.Projeto1;
 
 /**
  * Ponto de entrada do trabalho: menu na raiz da aplicação; cada entrega do edital fica no seu pacote ({@code projeto1}, {@code projeto2}, {@code projeto3}).
@@ -75,7 +76,7 @@ public final class MenuPrincipal {
                 return;
             }
             if ("1".equals(linha)) {
-                mensagemEmBreve("Projeto 1");
+                executarProjeto1(entrada);
             } else if ("2".equals(linha)) {
                 executarProjeto2(entrada);
             } else if ("3".equals(linha)) {
@@ -106,6 +107,15 @@ public final class MenuPrincipal {
             BenchmarkBusca.rodar(entrada, new String[0]);
         } catch (Exception e) {
             System.err.println("Erro ao executar o benchmark: " + e.getMessage());
+            e.printStackTrace(System.err);
+        }
+    }
+
+    private static void executarProjeto1(Scanner entrada) {
+        try {
+            Projeto1.rodar(entrada, new String[0]);
+        } catch (Exception e) {
+            System.err.println("Erro ao executar o Projeto 1: " + e.getMessage());
             e.printStackTrace(System.err);
         }
     }

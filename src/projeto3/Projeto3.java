@@ -1,16 +1,20 @@
 package projeto3;
 
 import java.util.Arrays;
+import java.util.Locale;
 import java.util.Random;
 import java.util.Scanner;
 
 public final class Projeto3 {
 
+    /** Alinhado ao espírito de {@code projeto2.BenchmarkBusca}: amostragem estatística. */
+    private static final int REPETICOES = 30;
+
     private Projeto3() {
     }
 
     public static void rodar(Scanner entrada, String[] args) {
-        int[] tamanhos = {1000, 10000, 100000};
+        int[] tamanhos = {1000, 5000, 10000};
 
         for (int n : tamanhos) {
             System.out.println("\n===== TAMANHO: " + n + " =====");
@@ -20,13 +24,13 @@ public final class Projeto3 {
             int[] inverso = gerarInverso(n);
 
             System.out.println("\n--- CENÁRIO ALEATÓRIO ---");
-            executarTodos(aleatorio);
+            executarTodos(n, aleatorio);
 
             System.out.println("\n--- CENÁRIO ORDENADO ---");
-            executarTodos(ordenado);
+            executarTodos(n, ordenado);
 
             System.out.println("\n--- CENÁRIO INVERSO ---");
-            executarTodos(inverso);
+            executarTodos(n, inverso);
         }
     }
 
@@ -34,30 +38,30 @@ public final class Projeto3 {
         rodar(new Scanner(System.in), args);
     }
 
-    private static void executarTodos(int[] vetor) {
+    private static void executarTodos(int n, int[] vetor) {
 
-        testar("Bubble Sort", vetor, new SortFunction() {
+        testar(n, "Bubble Sort", vetor, new SortFunction() {
             @Override
             public void sort(int[] array) {
                 bubbleSort(array);
             }
         });
 
-        testar("Insertion Sort", vetor, new SortFunction() {
+        testar(n, "Insertion Sort", vetor, new SortFunction() {
             @Override
             public void sort(int[] array) {
                 insertionSort(array);
             }
         });
 
-        testar("Quick Sort", vetor, new SortFunction() {
+        testar(n, "Quick Sort", vetor, new SortFunction() {
             @Override
             public void sort(int[] array) {
                 quickSort(array);
             }
         });
 
-        testar("Merge Sort", vetor, new SortFunction() {
+        testar(n, "Merge Sort", vetor, new SortFunction() {
             @Override
             public void sort(int[] array) {
                 mergeSort(array);
@@ -65,14 +69,42 @@ public final class Projeto3 {
         });
     }
 
-    private static void testar(String nome, int[] vetorOriginal, SortFunction func) {
-        int[] vetor = Arrays.copyOf(vetorOriginal, vetorOriginal.length);
+    private static void testar(int n, String nome, int[] vetorOriginal, SortFunction func) {
+        long[] temposNs = new long[REPETICOES];
+        for (int i = 0; i < REPETICOES; i++) {
+            int[] vetor = Arrays.copyOf(vetorOriginal, vetorOriginal.length);
+            long t0 = System.nanoTime();
+            func.sort(vetor);
+            temposNs[i] = System.nanoTime() - t0;
+        }
+        double mediaNs = mediaNanos(temposNs);
+        double dpNs = desvioPadraoAmostralNanos(temposNs, mediaNs);
+        double mediaMs = mediaNs / 1_000_000.0;
+        double dpMs = dpNs / 1_000_000.0;
+        System.out.printf(Locale.US,
+                "n=%7d | %-14s | média: %10.3f ms | desvio: %8.3f ms (%.2e ns ± %.2e ns)%n",
+                n, nome, mediaMs, dpMs, mediaNs, dpNs);
+    }
 
-        long inicio = System.currentTimeMillis();
-        func.sort(vetor);
-        long fim = System.currentTimeMillis();
+    private static double mediaNanos(long[] valores) {
+        double s = 0;
+        for (long v : valores) {
+            s += v;
+        }
+        return s / valores.length;
+    }
 
-        System.out.println(nome + ": " + (fim - inicio) + " ms");
+    /** Desvio padrão amostral (n − 1 no denominador), em ns. */
+    private static double desvioPadraoAmostralNanos(long[] valores, double media) {
+        if (valores.length < 2) {
+            return 0;
+        }
+        double acc = 0;
+        for (long v : valores) {
+            double d = v - media;
+            acc += d * d;
+        }
+        return Math.sqrt(acc / (valores.length - 1));
     }
 
     private interface SortFunction {
@@ -80,7 +112,7 @@ public final class Projeto3 {
     }
 
     private static int[] gerarAleatorio(int n) {
-        Random rand = new Random();
+        Random rand = new Random(0x243F6A8885A308D3L ^ (long) n);
         int[] v = new int[n];
         for (int i = 0; i < n; i++) {
             v[i] = rand.nextInt(100000);

@@ -7,8 +7,9 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Scanner;
 
-import projeto2.BenchmarkBusca;
 import projeto1.Projeto1;
+import projeto2.BenchmarkBusca;
+import projeto3.Projeto3;
 
 /**
  * Ponto de entrada do trabalho: menu na raiz da aplicação; cada entrega do edital fica no seu pacote ({@code projeto1}, {@code projeto2}, {@code projeto3}).
@@ -80,7 +81,7 @@ public final class MenuPrincipal {
             } else if ("2".equals(linha)) {
                 executarProjeto2(entrada);
             } else if ("3".equals(linha)) {
-                mensagemEmBreve("Projeto 3");
+                executarProjeto3(entrada);
             } else {
                 System.out.println("Opção inválida.");
             }
@@ -97,9 +98,13 @@ public final class MenuPrincipal {
         }
     }
 
-    private static void mensagemEmBreve(String nome) {
-        System.out.println();
-        System.out.println(nome + " — ainda não há implementação além do pacote reservado.");
+    private static void executarProjeto3(Scanner entrada) {
+        try {
+            Projeto3.rodar(entrada, new String[0]);
+        } catch (Exception e) {
+            System.err.println("Erro ao executar o benchmark de ordenação: " + e.getMessage());
+            e.printStackTrace(System.err);
+        }
     }
 
     private static void executarProjeto2(Scanner entrada) {
